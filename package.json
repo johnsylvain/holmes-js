@@ -1,0 +1,17 @@
+{
+  "name": "holmes-js",
+  "version": "0.0.1",
+  "description": "Anonymous browser fingerprinting",
+  "main": "index.js",
+  "repository": "https://github.com/johnsylvain/holmes-js.git",
+  "author": "John Sylvain <john.n.sylvain@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "./node_modules/.bin/jest test.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^21.2.1"
+  }
+}
