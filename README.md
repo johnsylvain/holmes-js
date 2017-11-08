@@ -10,6 +10,7 @@ other observable characteristics.
 ## Features
 - Promise based API
 - Singleton design pattern
+  - Improves speed for usage in large applications
 
 ## Usage
 
@@ -20,6 +21,17 @@ yarn add holmes-js
 
 # npm
 npm install holmes-js --save
+```
+
+### Example
+```js
+import Holmes from 'holmes-js';
+
+const holmes = new Holmes();
+
+holmes.get().then(res => {
+  // => returns unique browser fingerprint as 32-bit Integer
+})
 ```
 
 ## Contributing
