@@ -17,7 +17,26 @@ var Holmes = (function() {
 
     instance = this;
 
-    this.getCharacteristics();
+    this.fingerprint = null;
+
+    try {
+      this.characteristics = {
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        colorDepth: screen.colorDepth,
+        timezoneOffset: new Date().getTimezoneOffset(),
+        hasLocalStorage: !!window.localStorage,
+        hasSessionStorage: !!window.sessionStorage,
+        plugins: Array.from(navigator.plugins).map(function(p) {
+          var mimeTypes = Array.from(p).map(function(m) {
+            return [m.type, m.suffixes].join('~');
+          });
+          return [p.name, p.description, mimeTypes].join('::');
+        }).join('')
+      }
+    } catch (e) {
+      // ignore
+    }
 
     return instance;
   }
@@ -28,29 +47,18 @@ var Holmes = (function() {
    */
   Holmes.prototype.get = function() {
     if (this.fingerprint) {
-      return this.fingerprint;
+      return Promise.resolve(this.fingerprint);
     }
 
-    var key = this.characteristics.reduce(function(str, cur) {
-      return str + cur;
-    }, '');
+    var key = Object.keys(this.characteristics).reduce(function(str, cur) {
+      return str + this.characteristics[cur];
+    }.bind(this), '');
 
     this.fingerprint = this.hash(key, 256);
-    
+
+    instance = this;
+
     return Promise.resolve(this.fingerprint);
-
-  }
-
-  /**
-   * Gets browser characteristics 
-   * @name Holmes#getCharacteristics
-   */
-  Holmes.prototype.getCharacteristics = function() {
-    this.characteristics = {
-      userAgent: navigator.userAgent
-    }
-    
-    return this;
   }
 
   /**
