@@ -9,4 +9,10 @@ describe('Holmes', function() {
   it('should create a new instance', () => {
     expect(this.holmes).toBeInstanceOf(Holmes);
   });
+
+  it('should return the same instance', () => {
+    const newInstance = new Holmes();
+
+    expect(this.holmes).toBe(newInstance);
+  })
 })

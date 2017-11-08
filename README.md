@@ -7,6 +7,10 @@ Browser fingerprinting is the capability of a site to identify or
 re-identify a visiting user, user agent or device via configuration settings or
 other observable characteristics.
 
+## Features
+- Promise based API
+- Singleton design pattern
+
 ## Usage
 
 ### Installation
