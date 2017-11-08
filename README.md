@@ -1,5 +1,7 @@
 # Holmes
 [![Travis](https://img.shields.io/travis/johnsylvain/holmes-js.svg)]()
+[![npm](https://img.shields.io/npm/v/holmes-js.svg)]()
+[![API Stability](https://img.shields.io/badge/stability-experimental-orange.svg)]()
 > Anonymous browser fingerprinting
 
 ### What is browser fingerprinting?
