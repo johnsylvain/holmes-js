@@ -31,8 +31,11 @@ import Holmes from 'holmes-js';
 
 const holmes = new Holmes();
 
-const fingerprint = await holmes.get() 
-//=> returns unique browser fingerprint as 32-bit Integer
+// return unique browser fingerprint as 32-bit Integer
+const fingerprint = await holmes.get();
+
+// reset holmes instance
+const newHolmes = holmes.reset();
 ```
 
 ## Contributing

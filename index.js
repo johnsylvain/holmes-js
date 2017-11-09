@@ -62,6 +62,16 @@ var Holmes = (function() {
   }
 
   /**
+   * Reset characteristics and instance
+   * @name Holmes#reset
+   */
+  Holmes.prototype.reset = function() {
+    instance = Object.create(this);
+
+    return instance;
+  }
+
+  /**
    * Hashes string to 32bit Integer using Murmur Hash Algorithm
    * @name Holmes#hash
    * @param  {string} key ASCII string to be hashed

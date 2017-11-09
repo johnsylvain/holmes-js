@@ -14,5 +14,13 @@ describe('Holmes', function() {
     const newInstance = new Holmes();
 
     expect(this.holmes).toBe(newInstance);
+  });
+
+  it('should reset instance', () => {
+    let newInstance = new Holmes();
+
+    newInstance = newInstance.reset();
+
+    expect(this.holmes).not.toBe(newInstance);
   })
 })
