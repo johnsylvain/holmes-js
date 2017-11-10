@@ -2,8 +2,12 @@
  * Holmes class
  * @class
  */
-var Holmes = (function() {
-
+;(function(name, context, definition) {
+  if (typeof module !== 'undefined' && module.exports) { module.exports = definition(); }
+  else if (typeof define === 'function' && define.amd) { define(definition); }
+  else { context[name] = definition(); }
+})('Holmes', this, function() {
+  
   var instance;
   
   /**
@@ -131,7 +135,5 @@ var Holmes = (function() {
   }
 
   return Holmes;
-
-})();
-
-module.exports = Holmes;
+  
+});
