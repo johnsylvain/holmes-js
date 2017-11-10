@@ -3,9 +3,16 @@
  * @class
  */
 ;(function(name, context, definition) {
-  if (typeof module !== 'undefined' && module.exports) { module.exports = definition(); }
-  else if (typeof define === 'function' && define.amd) { define(definition); }
-  else { context[name] = definition(); }
+  if (typeof module !== 'undefined' && module.exports) { 
+    // CommonJS
+		module.exports = definition(); 
+  } else if (typeof define === 'function' && define.amd) { 
+    // AMD
+		define(definition); 
+  } else { 
+    // Global Object
+		context[name] = definition.call(context); 
+  }
 })('Holmes', this, function() {
   
   var instance;
