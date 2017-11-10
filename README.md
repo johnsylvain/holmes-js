@@ -10,9 +10,10 @@ re-identify a visiting user, user agent or device via configuration settings or
 other observable characteristics.
 
 ## Features
-- Promise based API
+- Persist fingerprint through sessions
 - Singleton design pattern
-  - Improves speed for usage in large applications
+  - Improves speed in large applications
+  - Removes inconsistencies during browser sessions
 
 ## Usage
 
@@ -27,15 +28,15 @@ npm install holmes-js --save
 
 ### Example
 ```js
-import Holmes from 'holmes-js';
+import Holmes from 'holmes-js'
 
-const holmes = new Holmes();
+const holmes = new Holmes()
 
 // return unique browser fingerprint as 32-bit Integer
-const fingerprint = await holmes.get();
+const fingerprint = holmes.get()
 
 // reset holmes instance
-const newHolmes = holmes.reset();
+const newHolmes = holmes.reset()
 ```
 
 ## Contributing

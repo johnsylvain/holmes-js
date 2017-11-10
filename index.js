@@ -14,33 +14,16 @@
    * Initializes a new instance of Holmes
    * @constructor Holmes
    */
-  function Holmes() {
+  function Holmes(options) {
     if (typeof instance === 'object') {
       return instance;
     }
 
     instance = this;
 
+    this.options = options || {};
     this.fingerprint = null;
-
-    try {
-      this.characteristics = {
-        userAgent: navigator.userAgent,
-        language: navigator.language,
-        colorDepth: screen.colorDepth,
-        timezoneOffset: new Date().getTimezoneOffset(),
-        hasLocalStorage: !!window.localStorage,
-        hasSessionStorage: !!window.sessionStorage,
-        plugins: Array.from(navigator.plugins).map(function(p) {
-          var mimeTypes = Array.from(p).map(function(m) {
-            return [m.type, m.suffixes].join('~');
-          });
-          return [p.name, p.description, mimeTypes].join('::');
-        }).join('')
-      }
-    } catch (e) {
-      // ignore
-    }
+    this.keys = [];
 
     return instance;
   }
@@ -51,18 +34,31 @@
    */
   Holmes.prototype.get = function() {
     if (this.fingerprint) {
-      return Promise.resolve(this.fingerprint);
+      return this.fingerprint;
     }
 
-    var key = Object.keys(this.characteristics).reduce(function(str, cur) {
-      return str + this.characteristics[cur];
-    }.bind(this), '');
-
-    this.fingerprint = this.hash(key, 256);
+    this.keys.push(navigator.userAgent);
+    this.keys.push(navigator.language);
+    this.keys.push(screen.colorDepth);
+    this.keys.push(new Date().getTimezoneOffset());
+    this.keys.push(!!window.localStorage);
+    this.keys.push(!!window.sessionStorage);
+    this.keys.push(navigator.platform);
+    this.keys.push(Array.from(navigator.plugins).map(function(p) {
+      var mimeTypes = Array.from(p).map(function(m) {
+        return [m.type, m.suffixes].join('~');
+      });
+      return [p.name, p.description, mimeTypes].join('::');
+    }).join(''));
+    if (this.options.useScreenSize && typeof screen.width !== undefined) {
+      this.keys.push([screen.width, screen.height])
+    }
+    
+    this.fingerprint = this.hash(this.keys.join(''), 256);
 
     instance = this;
 
-    return Promise.resolve(this.fingerprint);
+    return this.fingerprint;
   }
 
   /**
